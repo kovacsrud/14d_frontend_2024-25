@@ -1,13 +1,23 @@
 import Header from "./components/Header";
+import Counter from "./components/Counter";
+import Lista from "./components/Lista";
+import Posts from "./components/Posts";
+import Thumbnails from "./components/Thumbnails";
 
 function App() {
   
 
   return (
     
-      <div>
+      <div className="container">
         <Header headerText="Frontend programozás React könyvtárral"/>
-        <h1>React alapok</h1>
+        <Counter start={20} />
+        <Counter start={10} />
+        {/*<Lista />
+        <Posts />*/}
+        <Thumbnails />
+
+        
 
       </div>
       )
