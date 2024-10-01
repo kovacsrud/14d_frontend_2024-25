@@ -1,6 +1,6 @@
 import Header from "./components/Header";
 import Rusers from "./components/Rusers";
-
+import Footer from "./components/Footer";
 
 function App() {
   
@@ -9,6 +9,7 @@ function App() {
     <div>
       <Header />      
       <Rusers />
+      <Footer />
     </div>
 
   )
