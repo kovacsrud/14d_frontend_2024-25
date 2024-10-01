@@ -14,7 +14,7 @@ function Rusers() {
   return (
     <div>
         {
-            users.map((user,i)=>(<p key={i}>{user.name.title} {user.name.first} {user.name.last}</p>))
+            users.map((user,i)=>(<Ruser key={i} user={user} />))
         }
     </div>
   )
