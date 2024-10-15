@@ -1,14 +1,6 @@
 {
   "autok": [
     {
-      "id": "1",
-      "marka": "Opel",
-      "tipus": "Astra",
-      "kor": 18,
-      "rendszam": "GXE-115",
-      "szin": "szürke"
-    },
-    {
       "id": "2",
       "marka": "Opel",
       "tipus": "Corsa",
@@ -31,13 +23,6 @@
       "kor": 16,
       "rendszam": "SWK-887",
       "szin": "bordó"
-    },
-    {
-      "id": "5",
-      "marka": "Skoda",
-      "tipus": "Octavia",
-      "kor": "11",
-      "szin": "kék"
     }
   ]
 }
