@@ -1,0 +1,43 @@
+{
+  "autok": [
+    {
+      "id": "1",
+      "marka": "Opel",
+      "tipus": "Astra",
+      "kor": 18,
+      "rendszam": "GXE-115",
+      "szin": "szürke"
+    },
+    {
+      "id": "2",
+      "marka": "Opel",
+      "tipus": "Corsa",
+      "kor": 8,
+      "rendszam": "RXE-151",
+      "szin": "kék"
+    },
+    {
+      "id": "3",
+      "marka": "Fiat",
+      "tipus": "Albea",
+      "kor": 20,
+      "rendszam": "NCK-279",
+      "szin": "fekete"
+    },
+    {
+      "id": "4",
+      "marka": "Volkswagen",
+      "tipus": "Touran",
+      "kor": 16,
+      "rendszam": "SWK-887",
+      "szin": "bordó"
+    },
+    {
+      "id": "5",
+      "marka": "Skoda",
+      "tipus": "Octavia",
+      "kor": "11",
+      "szin": "kék"
+    }
+  ]
+}
