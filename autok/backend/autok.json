@@ -22,7 +22,15 @@
       "tipus": "Tuareg",
       "kor": "14",
       "rendszam": "SWK-887",
-      "szin": "lila"
+      "szin": "bordó"
+    },
+    {
+      "id": "9",
+      "marka": "Toyota",
+      "tipus": "Yaris",
+      "kor": "9",
+      "rendszam": "MIG-911",
+      "szin": "fehér"
     }
   ]
 }

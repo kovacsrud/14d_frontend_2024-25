@@ -12,7 +12,7 @@ function AutoLista() {
 
 
     useEffect(()=>{
-        fetch('http://localhost:8000/autok')
+        fetch(`${import.meta.env.VITE_BASE_URL}/autok`)
         .then(res=>res.json())
         .then(adat=>setAutok(adat))
         .catch(err=>console.log(err))

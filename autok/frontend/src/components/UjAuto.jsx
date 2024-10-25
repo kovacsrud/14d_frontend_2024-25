@@ -26,7 +26,7 @@ function UjAuto() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    adatkuldes({id,marka,tipus,kor,rendszam,szin},"POST","http://localhost:8000/autok");    
+    adatkuldes({id,marka,tipus,kor,rendszam,szin},"POST",`${import.meta.env.VITE_BASE_URL}/autok`);    
   };
 
   return (

@@ -19,7 +19,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Main />} />
             <Route path='/autolista' element={<AutoLista />} />
-            <Route path='/ujauto' element={<UjAuto />} />
+            <Route path='/ujauto' element={<ModAuto />} />
             <Route path='/modauto' element={<ModAuto />} />
             <Route path='*' element={<Navigate to='/' />} />
           </Routes>
