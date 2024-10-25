@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Modal from "./Modal";
 
 function Auto({ auto,frissites }) {
 
@@ -44,31 +45,40 @@ function Auto({ auto,frissites }) {
     <div className="mx-auto m-5 card bg-teal-800 text-teal-50 w-96">
       {
         isDelete && (
-          <div className="modal-box">
+          <div>
+           {/*  <div className="modal-box">
           <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
+            
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
           </form>
           <h3 className="font-bold text-lg text-black">Törlés!</h3>
           <p className="py-4 text-black">Biztosan törli?</p>
           <button className="btn" onClick={()=>torles(auto.id)}>Törlés</button>
           <button className="btn" onClick={()=>{closeDelete()}}>Bezár</button>          
-        </div>
+        </div> */}
+                
+         <Modal title="Törlés" body="Biztosan törli?" commitFunction={()=>torles(auto.id)} closeFunction={closeDelete} />
+          </div>
+          
         )
       }
 
       {
         isModify && (
-          <div className="modal-box">
+          <div>
+          {/*<div className="modal-box">
           <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
+            
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
           </form>
           <h3 className="font-bold text-lg text-black">Módosítás!</h3>
           <p className="py-4 text-black">Biztosan módosítja?</p>
           <button className="btn" onClick={()=>modosit(auto)}>Módosítás</button>
           <button className="btn" onClick={()=>{closeModify()}}>Bezár</button>          
+        </div>*/}
+        <Modal title="Módosítás" body="Biztosan módosítja?" commitFunction={()=>modosit(auto)} closeFunction={closeModify} />
         </div>
+
         )
       }
 
