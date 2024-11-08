@@ -16,6 +16,12 @@ function Game() {
     const gameStatus=useRef("");
     const elsoValasztottAjto=useRef(0);
     const utolsoValasztottAjto=useRef(0);
+    const cserevelNyertes=useRef(0);
+    const csereNelkulNyertes=useRef(0);
+    const cserevelVesztes=useRef(0);
+    const csereNelkulVesztes=useRef(0);
+
+
     ajtokMogott.current[autoPoz.current]=3;
 
 
@@ -52,8 +58,18 @@ function Game() {
             utolsoValasztottAjto.current=valasztottAjto;
             if(valasztottAjto==autoPoz.current){
                 gameStatus.current="Nyertél!";
+                if(elsoValasztottAjto.current==utolsoValasztottAjto.current){
+                    csereNelkulNyertes.current++;
+                } else {
+                    cserevelNyertes.current++;
+                }
             } else {
                 gameStatus.current="Vesztettél!";
+                if(elsoValasztottAjto.current==utolsoValasztottAjto.current){
+                    csereNelkulVesztes.current++;
+                } else {
+                    cserevelVesztes.current++;
+                }
             }
             console.log(ajtokMogott.current);
             ajtok.current=ajtokMogott.current;
@@ -103,8 +119,44 @@ function Game() {
             <button id="1" onClick={buttonSelect} className="btn btn-outline" value="1">2</button>
             <button id="2" onClick={buttonSelect} className="btn btn-outline" value="2">3</button>
         </div>
-        <p className="text-5xl text-center">{gameStatus.current}</p>
-        <button onClick={gameInit} className="btn btn-outline">Új játék</button>
+        
+        <div className="grid grid-cols-1 justify-items-center m-5">
+            <button onClick={gameInit} className="btn btn-outline">Új játék</button>
+        </div>
+
+        <div
+    class="w-full h-full p-10 bg-gradient-to-bl from-teal-400 to-blue-500 flex flex-col justify-center items-center text-white">
+    <h1 class="text-5xl m-5"><b>{gameStatus.current}</b> </h1>
+    <p>Játék statisztika</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mt-10 lg:mt-20">
+
+        <div class="bg-transparent border text-center">
+            <p class="text-5xl px-10 py-5">{cserevelNyertes.current}</p>
+            <hr/>
+            <p class="px-10 py-5">Cserével nyert</p>
+        </div>
+
+        <div class="bg-transparent border text-center">
+            <p class="text-5xl px-10 py-5">{csereNelkulNyertes.current}</p>
+            <hr/>
+            <p class="px-10 py-5">Csere nélkül nyert</p>
+        </div>
+
+        <div class="bg-transparent border text-center">
+            <p class="text-5xl px-10 py-5">{cserevelVesztes.current}</p>
+            <hr/>
+            <p class="px-10 py-5">Cserével veszített</p>
+        </div>
+        <div class="bg-transparent border text-center">
+            <p class="text-5xl px-10 py-5">{csereNelkulVesztes.current }</p>
+            <hr/>
+            <p class="px-10 py-5">Csere nélkül veszített</p>
+        </div>
+    </div>
+    
+</div>    
+
     </div>
   )
 }
