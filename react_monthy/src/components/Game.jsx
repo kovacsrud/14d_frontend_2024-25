@@ -111,7 +111,7 @@ function Game() {
 
   return (
     <div>
-        <div className="grid grid-cols-3 justify-items-center">
+        <div className="grid grid-cols-3 justify-items-center bg-gradient-to-bl from-teal-400 to-blue-500">
             {
                 doors.map((door,i)=>(<GameImage key={i} selected={door}/>))
             }
