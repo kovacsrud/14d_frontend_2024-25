@@ -14,6 +14,7 @@ function KutyaForm() {
 
     if(state!==null){
         const{kutya}=state;
+        
         cim="Rendelési adat módosítása";
         method="PATCH";
         formObj={
