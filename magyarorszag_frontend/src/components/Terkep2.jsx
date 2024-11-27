@@ -1,45 +1,50 @@
-import { useEffect, useRef,useContext } from "react";
-import mapboxgl from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
-
+import { useEffect, useState,useContext } from "react";
+import Map, { Marker } from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import TelepulesContext from "../contexts/TelepulesContext";
+
+
 
 function Terkep2(props) {
 
-    const{telepules}=useContext(TelepulesContext);   
+    
     const{szeles,magas,zoom}=props
+    const {selectedTelepules}=useContext(TelepulesContext);
+    const[telepules,setTelepules]=useState({});
 
-    const mapContainer = useRef(null);
-    const map = useRef(null);
-    mapboxgl.accessToken = "pk.eyJ1Ijoic3phamJlcnBpcmF0eSIsImEiOiJja3drd25vbTAxd2YyMnBuc3IxenhqMHNvIn0.c55V1Z3GlPscRZjxsWZYrQ";
+
+    const MAPBOX_TOKEN = 'pk.eyJ1Ijoic3phamJlcnBpcmF0eSIsImEiOiJja3drd25vbTAxd2YyMnBuc3IxenhqMHNvIn0.c55V1Z3GlPscRZjxsWZYrQ'; // Cseréld ki a saját tokenedre         
+    
     useEffect(()=>{
-        console.log("Település:"+telepules.telepulesnev);
-      //  console.log("Lat:"+lat+" Lon:"+lng);
-    },[telepules])
-    // useEffect(()=>{
+      console.log("Selected:"+selectedTelepules);
+      if(selectedTelepules!=""){
+        fetch(`${import.meta.env.VITE_BASE_URL}/api/telepulesek/telepulesnev/${selectedTelepules}`)
+        .then(res=>res.json())
+        .then(adat=>{setTelepules(adat);console.log(adat)})
+        .catch(err=>alert(err));
+        }   
         
-    //     if(map.current) return;
-    //     map.current=new mapboxgl.Map({
-    //         container:mapContainer.current,
-    //         style:"mapbox://styles/mapbox/streets-v11",
-    //         center:[lng,lat],
-    //         zoom:zoom
-    //     });
-    //     new mapboxgl.Marker().setLngLat([lng,lat]).addTo(map.current);
-
-    //     map.current.on("error", (e) => {
-    //         console.error("Mapbox error:", e.error);
-    //       });
-
-
-    //     return ()=>map.current?.remove();
-    // },[])
+    },[])
+    
 
   return (
-    <div ref={mapContainer} style={{width:szeles,height:magas}}>
-        <h1 className="text-2xl">{telepules.telepulesnev}</h1>
-        <h1 className="text-2xl">{telepules.lat}</h1>
-        <h1 className="text-2xl">{telepules.lng}</h1>
+    <div>
+      <p>{telepules.lat}, {telepules.lng}</p>
+      {
+        telepules.lat &&  telepules.lng &&(<Map
+          initialViewState={{
+            longitude: telepules.lng,
+            latitude: telepules.lat,
+            zoom: zoom,
+          }}
+          style={{ width: szeles, height: magas }}
+          mapStyle="mapbox://styles/mapbox/streets-v11"
+          mapboxAccessToken={MAPBOX_TOKEN}
+        >
+          <Marker longitude={telepules.lng} latitude={telepules.lat} />
+        </Map>)
+      }
+       
 
     </div>
   )

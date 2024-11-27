@@ -15,16 +15,25 @@ export const TelepulesProvider=({children})=>{
     },[]);
 
     useEffect(()=>{
+        if(selectedTelepules!=""){
         fetch(`${import.meta.env.VITE_BASE_URL}/api/telepulesek/telepulesnev/${selectedTelepules}`)
         .then(res=>res.json())
         .then(adat=>{setTelepules(adat);console.log(adat)})
         .catch(err=>alert(err));
+        }
     },[selectedTelepules])
+
+    const getTelepules=(telepulesnev)=>{
+        fetch(`${import.meta.env.VITE_BASE_URL}/api/telepulesek/telepulesnev/${telepulesnev}`)
+        .then(res=>res.json())
+        .then(adat=>{setTelepules(adat);console.log(adat)})
+        .catch(err=>alert(err));
+    }
 
 
 
     return <TelepulesContext.Provider value={{
-        telepulesnevek,telepules,selectedTelepules,setTelepules,setSelectedTelepules
+        telepulesnevek,telepules,selectedTelepules,setTelepules,setSelectedTelepules,getTelepules
     }}>{children}</TelepulesContext.Provider>
 }
 

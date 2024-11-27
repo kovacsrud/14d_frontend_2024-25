@@ -1,9 +1,15 @@
 import { useContext } from "react";
+import {useLocation} from 'react-router-dom';
 import TelepulesContext from "../contexts/TelepulesContext";
 import Terkep2 from "./Terkep2";
 
 function TelepulesAdatok() {
-    const{selectedTelepules,telepules}=useContext(TelepulesContext);
+
+  //const{state}=useLocation();
+  //const{telepules}=state;
+  const{selectedTelepules,telepules}=useContext(TelepulesContext);
+  
+    
   return (
     <div>
         <h1 className="text-3xl text-lime-800 font-bold text-center">{selectedTelepules}</h1>
