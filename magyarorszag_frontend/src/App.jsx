@@ -7,6 +7,7 @@ import { TelepulesProvider } from './contexts/TelepulesContext';
 import { MegyeProvider } from './contexts/MegyeContext';
 import { TipusProvider } from './contexts/TipusContext';
 import TelepulesAdatok from './components/TelepulesAdatok';
+import MegyeTelepulesek from './components/MegyeTelepulesek';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
                   <Route path='/telepulesek' element={<Telepulesek />} />
                   <Route path='/jogallasok' element={<Jogallasok />} />
                   <Route path='/telepulesadatok' element={<TelepulesAdatok />} />
+                  <Route path='/megyetelepulesek' element={<MegyeTelepulesek />} />
                </Routes>
             </BrowserRouter> 
         </TipusProvider>

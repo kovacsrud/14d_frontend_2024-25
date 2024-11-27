@@ -28,8 +28,8 @@ function Terkep2(props) {
     
 
   return (
-    <div>
-      <p>{telepules.lat}, {telepules.lng}</p>
+    <div className="flex flex-row items-center justify-center m-10 ">
+      
       {
         telepules.lat &&  telepules.lng &&(<Map
           initialViewState={{
