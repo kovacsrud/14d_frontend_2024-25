@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import MegyeContext from "../contexts/MegyeContext";
+import Telepules from "./Telepules";
 
 
 function MegyeTelepulesek() {
@@ -9,7 +10,7 @@ function MegyeTelepulesek() {
         <h1>{kivalasztottMegye}</h1>
         <div className="bg-lime-100 grid grid-cols-3 justify-items-center m-10"> 
         {
-            megyeTelepulesei.map((telepules,i)=><p key={i}>{telepules.telepulesnev}</p>)        
+            megyeTelepulesei.map((telepules,i)=><Telepules key={i} telepules={telepules.telepulesnev} />)        
         }
       </div>
 
