@@ -28,7 +28,7 @@ function Terkep2(props) {
     
 
   return (
-    <div className="flex flex-row items-center justify-center m-10 ">
+    <div className="flex flex-row items-center justify-center m-10">
       
       {
         telepules.lat &&  telepules.lng &&(<Map

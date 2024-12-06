@@ -10,7 +10,7 @@ function TelepulesAdatok() {
   const { selectedTelepules, telepules } = useContext(TelepulesContext);
 
   return (
-    <div className="h-full">
+    <div className=" bg-lime-100">
       <h1 className="text-3xl text-lime-800 font-bold text-center">
         {selectedTelepules}
       </h1>
@@ -29,19 +29,19 @@ function TelepulesAdatok() {
           </ul>
         </div>
       </div>
-
-      <Terkep2
-        telepules={telepules}
-        szeles={"400px"}
-        magas={"400px"}
-        zoom={13}
-      />
       <Terkep
         telepules={telepules}
         szeles={"400px"}
         magas={"400px"}
         zoom={13}
       />
+      <Terkep2
+        telepules={telepules}
+        szeles={"400px"}
+        magas={"400px"}
+        zoom={13}
+      />
+      
     </div>
   );
 }
