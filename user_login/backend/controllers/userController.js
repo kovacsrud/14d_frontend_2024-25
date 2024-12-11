@@ -5,7 +5,7 @@ const jwt=require('jsonwebtoken');
 
 
 const generateToken=(id)=>{
-    return jwt.sign({id},process.env.JWT_SECRET,{expiresIn:"1h"});
+    return jwt.sign({id},process.env.JWT_SECRET,{expiresIn:"1m"});
 }
 
 
@@ -79,7 +79,7 @@ const adatmodositas=async (req,res)=>{
 
 const vedett=async (req,res)=>{
     const username=req.user.username;
-    res.send("Bejelentkezve:"+username);
+    res.json(req.user);
 }
 
 module.exports={
