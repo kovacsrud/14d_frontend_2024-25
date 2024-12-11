@@ -45,8 +45,8 @@ function Login() {
         <h1 className="text-3xl font-bold text-center my-10">Bejelentkezés</h1>
         <div>
             <form onSubmit={onSubmit} className="flex flex-col items-center justify-center">
-            <input type="text" id="username" value={formData.username} onChange={writeData} placeholder="felhasználói név" className="my-5 input input-bordered w-full max-w-xs" />
-            <input type="password" id="password" value={formData.password} onChange={writeData} placeholder="jelszó" className="my-5 input input-bordered w-full max-w-xs" />
+            <input type="text" id="username" required value={formData.username} onChange={writeData} placeholder="felhasználói név" className="my-5 input input-bordered w-full max-w-xs" />
+            <input type="password" id="password" required value={formData.password} onChange={writeData} placeholder="jelszó" className="my-5 input input-bordered w-full max-w-xs" />
             <button type="submit" className="my-5 btn btn-primary">Küldés</button>
 
             </form>
