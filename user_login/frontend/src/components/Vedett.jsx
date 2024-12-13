@@ -13,6 +13,7 @@ function Vedett() {
     if(token){
       fetch(`${import.meta.env.VITE_BASE_URL}/api/user/vedett`,{
         method:'GET',
+        credentials:'include',
         headers:{
           "Content-type":"application/json",
           "Authorization":`Bearer ${token}`

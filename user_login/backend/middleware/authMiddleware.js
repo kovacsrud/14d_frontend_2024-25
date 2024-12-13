@@ -5,6 +5,13 @@ const mongoose=require('mongoose');
 const protect=async (req,res,next)=>{
     let token;
 
+    //const sutiToken=req.cookies.token;
+    if(req.cookies){
+        console.log(req.cookies);
+    } else {
+        console.log("Nincs ilyen");
+    }
+
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
         //token ellenőrzés
         try {
