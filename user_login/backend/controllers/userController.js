@@ -52,12 +52,6 @@ const belepes=async (req,res)=>{
 
     const token=generateToken(user.id);
 
-    res.cookie('token',token,{
-        httpOnly:true,
-        secure:false,
-        sameSite:'None',
-        maxAge:3600000
-    });
     
     return res.status(200).json(token);
 
