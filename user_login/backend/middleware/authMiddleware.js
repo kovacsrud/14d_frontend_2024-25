@@ -7,10 +7,16 @@ const protect=async (req,res,next)=>{
 
   
 
-    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
+    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer') || req.cookies.token){
         //token ellenőrzés
         try {
-            token=req.headers.authorization.split(' ')[1];
+            if(req.cookies.token)    {
+                token=req.cookies.token;
+            } else {
+                token=req.headers.authorization.split(' ')[1];
+            }
+
+            
             const idFromtoken=jwt.verify(token,process.env.JWT_SECRET);
             req.user=await User.findById(idFromtoken.id).select('-password');
             next();

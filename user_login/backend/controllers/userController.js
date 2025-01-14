@@ -36,6 +36,14 @@ const regisztracio=async (req,res)=>{
 
     
     const token=generateToken(ujUser.id);
+
+    res.cookie('token',token,{
+        secure:true,
+        httpOnly:true,
+        sameSite:'none',
+        maxAge:360000
+    });
+
     return res.json(token);
 
 }
@@ -51,6 +59,14 @@ const belepes=async (req,res)=>{
     }
 
     const token=generateToken(user.id);
+
+    
+    res.cookie('token',token,{
+        secure:true,
+        httpOnly:true,
+        sameSite:'none',
+        maxAge:360000
+    });
 
     
     return res.status(200).json(token);
@@ -78,8 +94,28 @@ const adatmodositas=async (req,res)=>{
 
 }
 
+const kilepes=async (req,res)=>{
+    res.clearCookie('token',{
+        httpOnly:true,
+        secure:true,
+        sameSite:'none'
+    });
+    res.status(200).json({message:"Kijelentkezve"});
+}
+
 const vedett=async (req,res)=>{
     const username=req.user.username;
+
+    const token=generateToken(req.user.id);
+
+    
+    res.cookie('token',token,{
+        secure:true,
+        httpOnly:true,
+        sameSite:'none',
+        maxAge:360000
+    });
+    
     res.json(req.user);
 }
 
@@ -87,5 +123,6 @@ module.exports={
     regisztracio,
     belepes,
     adatmodositas,
-    vedett
+    vedett,
+    kilepes
 }
