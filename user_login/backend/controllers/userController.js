@@ -64,7 +64,7 @@ const belepes=async (req,res)=>{
     res.cookie('token',token,{
         secure:true,
         httpOnly:true,
-        sameSite:'none',
+        sameSite:'lax',
         maxAge:360000
     });
 
@@ -119,10 +119,15 @@ const vedett=async (req,res)=>{
     res.json(req.user);
 }
 
+const isAuthenticated=async (req,res)=>{
+    res.json({"authenticated":true,user:req.user});
+}
+
 module.exports={
     regisztracio,
     belepes,
     adatmodositas,
     vedett,
-    kilepes
+    kilepes,
+    isAuthenticated
 }

@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
+import UserContext from "../context/UserContext";
 import {useNavigate} from "react-router-dom";
 
 
 function Login() {
     const navigate=useNavigate();
+    const{authStatus}=useContext(UserContext);
 
     const kuldes=(formData,method)=>{
         fetch(`${import.meta.env.VITE_BASE_URL}/api/user/belepes`,{
@@ -15,6 +17,7 @@ function Login() {
         .then(token=>{
             if(!token.message){
                 sessionStorage.setItem('usertoken',token);
+                //authStatus();
                 alert("Sikeres belépés!");
                 navigate('/');
             } else {

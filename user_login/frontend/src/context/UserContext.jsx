@@ -5,6 +5,25 @@ const UserContext=createContext();
 export const UserProvider=({children})=>{
 
     const[refresh,setRefresh]=useState(false);
+    const[isAuthenticated,setIsAuthenticated]=useState(false);
+
+    const authStatus=()=>{
+        fetch(`${import.meta.env.VITE_BASE_URL}/api/user/auth`,{
+            method:'GET',
+            credentials:'include',
+            headers:{
+                "Content-type":"application/json"
+            }
+        })
+        .then(res=>res.json())
+        .then(auth=>{
+            if(auth.authenticated){
+                setIsAuthenticated(true);
+            }
+        })
+        .catch(err=>{alert(err);setIsAuthenticated(false)});
+
+    }
 
     const update=()=>{
         setRefresh(prev=>!prev);
@@ -20,7 +39,9 @@ export const UserProvider=({children})=>{
     return<UserContext.Provider value={{
         refresh,
         update,
-        logout
+        logout,
+        authStatus,
+        isAuthenticated
     }}>{children}</UserContext.Provider>
 }
 

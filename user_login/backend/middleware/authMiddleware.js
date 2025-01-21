@@ -6,6 +6,7 @@ const protect=async (req,res,next)=>{
     let token;
 
   
+    console.log(req.cookies.token);
 
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer') || req.cookies.token){
         //token ellenőrzés
