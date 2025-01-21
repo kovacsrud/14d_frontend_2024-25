@@ -1,10 +1,12 @@
 
-import { useState,useEffect } from "react";
+import { useState,useEffect,useContext } from "react";
+import UserContext from "../context/UserContext";
 import {useNavigate} from 'react-router-dom';
 
 
 function Vedett() {
   const[vedettinfo,setVedettInfo]=useState({});
+  const{authStatus}=useContext(UserContext);
   const navigate=useNavigate();
 
   const token=sessionStorage.getItem('usertoken');
@@ -16,7 +18,7 @@ function Vedett() {
         credentials:'include',
         headers:{
           "Content-type":"application/json",
-          "Authorization":`Bearer ${token}`
+          //"Authorization":`Bearer ${token}`
         }
       })
       .then(res=>res.json())
@@ -24,7 +26,7 @@ function Vedett() {
           if(!data.message){
             setVedettInfo(data);
           } else {
-            
+            authStatus();            
             alert(data.message);
           }
 

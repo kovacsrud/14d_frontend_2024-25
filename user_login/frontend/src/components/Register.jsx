@@ -8,6 +8,7 @@ function Register() {
     fetch(`${import.meta.env.VITE_BASE_URL}/api/user/regisztracio`,{
       method:method,
       headers:{"Content-type":"application/json"},
+      credentials:'include',
       body:JSON.stringify(formData)
     })
     .then(res=>res.json())

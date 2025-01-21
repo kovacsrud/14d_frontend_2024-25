@@ -5,7 +5,7 @@ import { useContext } from 'react';
 
 function Menu() {
     const navigate=useNavigate();
-    const {logout}=useContext(UserContext);
+    const {logout,isAuthenticated}=useContext(UserContext);
     const token=sessionStorage.getItem('usertoken');
     
 
@@ -48,7 +48,7 @@ function Menu() {
       </div>
       <div className="hidden md:flex md:space-x-10">
 
-        { !token && (
+        { (!token || !isAuthenticated) && (
             <div>
             <Link to="/register" className="m-5 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">
             Regisztráció
@@ -60,7 +60,7 @@ function Menu() {
 
         )}
 
-        { token && (
+        { (token || isAuthenticated) && (
             <div>
             <Link to="/vedett" className="m-5 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">
             Védett infó

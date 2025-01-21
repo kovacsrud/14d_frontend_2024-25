@@ -19,6 +19,8 @@ export const UserProvider=({children})=>{
         .then(auth=>{
             if(auth.authenticated){
                 setIsAuthenticated(true);
+            } else {
+                setIsAuthenticated(false);
             }
         })
         .catch(err=>{alert(err);setIsAuthenticated(false)});
@@ -31,6 +33,7 @@ export const UserProvider=({children})=>{
 
     const logout=(tokenName)=>{
         sessionStorage.removeItem(tokenName);
+        setIsAuthenticated(false);
         update()
     }
 
@@ -42,6 +45,7 @@ export const UserProvider=({children})=>{
         logout,
         authStatus,
         isAuthenticated
+        
     }}>{children}</UserContext.Provider>
 }
 

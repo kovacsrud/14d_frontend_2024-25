@@ -10,6 +10,7 @@ function Login() {
     const kuldes=(formData,method)=>{
         fetch(`${import.meta.env.VITE_BASE_URL}/api/user/belepes`,{
             method:method,
+            credentials:'include',
             headers:{"Content-type":"application/json"},
             body:JSON.stringify(formData)
         })
@@ -17,7 +18,7 @@ function Login() {
         .then(token=>{
             if(!token.message){
                 sessionStorage.setItem('usertoken',token);
-                //authStatus();
+                authStatus();
                 alert("Sikeres belépés!");
                 navigate('/');
             } else {

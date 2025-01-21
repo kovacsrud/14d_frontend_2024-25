@@ -64,7 +64,7 @@ const belepes=async (req,res)=>{
     res.cookie('token',token,{
         secure:true,
         httpOnly:true,
-        sameSite:'lax',
+        sameSite:'none',
         maxAge:360000
     });
 

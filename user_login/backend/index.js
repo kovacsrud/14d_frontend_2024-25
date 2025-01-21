@@ -21,8 +21,10 @@ app.use(express.urlencoded({extended:false}));
 app.use('/api/user',require('./routes/userRoutes'));
 
 const options={
-    key:fs.readFileSync(path.join(__dirname+"/ssl","cert.key")),
-    cert:fs.readFileSync(path.join(__dirname+"/ssl","cert.crt"))
+    //key:fs.readFileSync(path.join(__dirname+"/ssl","cert.key")),
+    //cert:fs.readFileSync(path.join(__dirname+"/ssl","cert.crt"))
+    key:fs.readFileSync(path.join(__dirname+"/ssl","localhost-key.pem")),
+    cert:fs.readFileSync(path.join(__dirname+"/ssl","localhost.pem"))
 }
 
 const server=https.createServer(options,app);
