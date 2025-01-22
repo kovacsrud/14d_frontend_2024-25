@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
+import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+
 
 function Register() {
   const navigate=useNavigate();
+  const{authStatus}=useContext(UserContext);
 
   const kuldes=(formData,method)=>{
     fetch(`${import.meta.env.VITE_BASE_URL}/api/user/regisztracio`,{
@@ -15,6 +18,7 @@ function Register() {
     .then(token=>{
       if(!token.message){
         sessionStorage.setItem('usertoken',token);
+        authStatus();
         alert("Sikeres regisztráció!");
         navigate('/');
       } else {
