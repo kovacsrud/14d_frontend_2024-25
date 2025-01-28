@@ -5,6 +5,7 @@ const bcrypt=require('bcryptjs');
 const dotenv=require('dotenv').config();
 const User=require('./model/User');
 const cookieParser=require('cookie-parser');
+const fileUpload=require('express-fileupload');
 
 const https=require('https');
 const fs=require('fs');
@@ -18,7 +19,12 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+app.use(fileUpload());
+app.use('/files',express.static(path.join(__dirname,'files')));
 app.use('/api/user',require('./routes/userRoutes'));
+app.use('/api/files',require('./routes/uploadRoutes'));
+app.use('/api/images',require('./routes/imageRoutes'));
+
 
 const options={
     //key:fs.readFileSync(path.join(__dirname+"/ssl","cert.key")),
