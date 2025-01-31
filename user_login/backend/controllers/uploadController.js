@@ -20,17 +20,20 @@ const fileUpload=async (req,res)=>{
             if(image){
                 return res.json({message:req.files[prop].name+" kép már lett feltöltve!"});
             }
-            await fs.writeFile(path+req.user.username+"/"+req.files[prop].name,req.files[prop].data,err=>{console.log(err)});
+            
             try {
+                await fs.writeFile(path+req.user.username+"/"+req.files[prop].name,req.files[prop].data,err=>{console.log(err)});
                 const ujImage=await Image.create({
                     userid:req.user._id,
                     imageName:req.files[prop].name
                 });
                 
             } catch (error) {
-                return res.json({message:error})
+                //return res.json({message:error})
+                console.log(err);
             }
         }
+        
     }
 
     res.json({message:"Feltöltés kész!"});
