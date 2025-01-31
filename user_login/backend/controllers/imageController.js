@@ -16,7 +16,26 @@ const getImages= async (req,res)=>{
 }
 
 const deleteimage= async (req,res)=>{
+    const {imageId}=req.body;
+    const image=await Image.findById(imageId);
 
+    if(!image){
+        return res.json({message:"A kép nem törölhető!"})
+    }
+
+    const path=appDir+"/files/"+req.user.username+"/";
+    if(fs.existsSync(path+image.imageName)){
+        try {
+            await Image.findByIdAndDelete({userid:req.user._id,_id:imageId});
+            await fs.rm(path+image.imageName,()=>{console.log("Törlés:"+imageId)});
+            return res.json({message:"Fájl törölve:"+image.imageName});
+            
+        } catch (error) {
+            return res.json({message:error})
+        }
+
+    }
+    
 }
 
 module.exports={

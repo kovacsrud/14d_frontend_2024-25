@@ -5,6 +5,6 @@ const {protect}=require('../middleware/authMiddleware');
 
 
 router.get('/',protect,getImages);
-router.delete('/',deleteimage);
+router.delete('/',protect,deleteimage);
 
 module.exports=router;

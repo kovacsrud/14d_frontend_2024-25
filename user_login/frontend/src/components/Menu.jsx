@@ -65,6 +65,9 @@ function Menu() {
             <Link to="/vedett" className="m-5 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">
             Védett infó
             </Link>
+            <Link to="/imageupload" className="m-5 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">
+            Képek feltöltése
+            </Link>
             <a onClick={()=>{logout('usertoken');navigate('/')}}  className="font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">
             Kilépés
             </a>

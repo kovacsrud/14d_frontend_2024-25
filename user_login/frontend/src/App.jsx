@@ -3,6 +3,7 @@ import Menu from "./components/Menu";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Vedett from "./components/Vedett";
+import ImageUpload from "./components/ImageUpload";
 
 import {BrowserRouter,Routes,Route,Navigate} from 'react-router-dom';
 
@@ -24,6 +25,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/vedett" element={<Vedett />} />
+            <Route path="/imageupload" element={<ImageUpload />}/>
             <Route path="*" element={<Navigate to="/" />} />          
           </Routes>  
         </BrowserRouter>
