@@ -25,6 +25,15 @@ function ImagesBin() {
             .then(res=>res.json())
             .then(adatok=>{
                 console.log(adatok);
+                let tempimages=[];
+                adatok.forEach(image=>{
+                    let arrayBuffer=new Uint8Array(image.imageData.data);
+                    const blob=new Blob([arrayBuffer],{type:"image/png"});
+                    const img=URL.createObjectURL(blob);
+                    tempimages.push(img);
+                });
+                setImages(adatok);
+                setBinImages(tempimages);
             })
             .catch(err=>toast.error(err));
         } else {
@@ -34,7 +43,15 @@ function ImagesBin() {
     },[isAuthenticated,refresh]);
 
   return (
-    <div>ImagesBin</div>
+    <div>
+        {
+            binImages.map((image,i)=>(<p key={i}>
+                <img className="w-48" src={image} />
+                {images[i].imageName}
+
+            </p>))
+        }
+    </div>
   )
 }
 
