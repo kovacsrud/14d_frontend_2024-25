@@ -1,6 +1,7 @@
 import { useState,useContext,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
+import { toast } from "react-toastify";
 
 function ImageUpload() {
     const {update,authStatus,isAuthenticated}=useContext(UserContext);
@@ -31,7 +32,11 @@ function ImageUpload() {
             body:adat
         })
         .then(res=>res.json())
-        .then(valasz=>{alert("Feltöltés:"+valasz.message);update()})
+        .then(valasz=>{
+            //alert("Feltöltés:"+valasz.message);
+            toast.success(valasz.message);
+            update()
+        })
         .catch(err=>alert("Hiba:"+err));
     }
 

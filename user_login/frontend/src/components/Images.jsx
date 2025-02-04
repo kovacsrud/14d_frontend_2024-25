@@ -1,6 +1,8 @@
 import { useState, useContext,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
+import Image from "./Image";
+import { toast } from "react-toastify";
 
 function Images() {
     const{update,authStatus,isAuthenticated,refresh}=useContext(UserContext);
@@ -10,7 +12,7 @@ function Images() {
 
     useEffect(()=>{
         authStatus();
-        console.log(isAuthenticated);
+        
         if(isAuthenticated){
             fetch(`${import.meta.env.VITE_BASE_URL}/api/images`,{
                 method:"GET",
@@ -21,7 +23,7 @@ function Images() {
             })
             .then(res=>res.json())
             .then(adatok=>{setImages(adatok.images);setPath(adatok.path);console.log(adatok)})
-            .catch(err=>alert(err));
+            .catch(err=>toast.error(err));
         } else {
             navigate('/login');
         }
@@ -32,24 +34,22 @@ function Images() {
   return (
     <div>
         <h2 className="text-center font-bold text-2xl">Képek listája</h2>
-                
-        {            
+                                 
            
-                <div>
+                <div className="flex flex-row flex-wrap justify-center items-center">
                     
                     {
                         isAuthenticated ? <>
                         {
-                            images.map((image,i)=>(<img key={i} src={`${import.meta.env.VITE_BASE_URL}`+path+image.imageName} />))
+                            //images.map((image,i)=>(<img key={i} src={`${import.meta.env.VITE_BASE_URL}`+path+image.imageName} />))
+                            images.map((image,i)=>(<Image key={i} path={path} image={image}/>))
                         }
                         </>
                         :
                         <><p>Nem vagy bejelentkezve</p></>
                     }
-                </div>
-           
-            
-        }
+                </div>            
+        
        
     </div>
   )

@@ -2,6 +2,37 @@ const fs=require('fs');
 const {dirname}=require('path');
 const appDir=dirname(require.main.filename);
 const Image=require('../model/Image');
+const ImageBin=require('../model/ImageBin');
+
+
+const storeImages=async (req,res)=>{
+    if(!req.files){
+        return res.json({message:"Nincs feltöltött fájl!"})
+    }
+    if(req.files){
+        for(prop in req.files){
+            const image=await ImageBin.findOne({userid:req.user._id,imageName:req.files[prop].name});
+            if(image){
+                return res.json({message:req.files[prop].name+" kép már lett feltöltve!"});
+            }
+            
+            try {
+                
+                const ujImage=await ImageBin.create({
+                    userid:req.user._id,
+                    imageName:req.files[prop].name,
+                    imageData:req.files[prop].data
+                });
+                
+            } catch (error) {
+                return res.json({message:error})
+                console.log(err);
+            }
+        }
+
+    }
+    res.json({message:"Feltöltés rendben!"});
+}
 
 const fileUpload=async (req,res)=>{
 
@@ -40,4 +71,4 @@ const fileUpload=async (req,res)=>{
 
 }
 
-module.exports={fileUpload};
+module.exports={fileUpload,storeImages};

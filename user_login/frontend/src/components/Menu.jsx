@@ -5,7 +5,7 @@ import { useContext } from 'react';
 
 function Menu() {
     const navigate=useNavigate();
-    const {logout,isAuthenticated}=useContext(UserContext);
+    const {logout,isAuthenticated,authStatus}=useContext(UserContext);
     const token=sessionStorage.getItem('usertoken');
     
 
@@ -62,14 +62,20 @@ function Menu() {
 
         { (token || isAuthenticated) && (
             <div>
-            <Link to="/vedett" className="m-5 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">
+            <Link to="/vedett" onClick={()=>authStatus()} className="m-5 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">
             Védett infó
             </Link>
-            <Link to="/imageupload" className="m-5 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">
+            <Link to="/imageupload" onClick={()=>authStatus()} className="m-5 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">
             Képek feltöltése
             </Link>
-            <Link to="/images" className="m-5 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">
+            <Link to="/imageuploadbin" onClick={()=>authStatus()} className="m-5 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">
+            Képek feltöltése 2
+            </Link>
+            <Link to="/images" onClick={()=>authStatus()} className="m-5 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">
             Képek
+            </Link>
+            <Link to="/imagesbin" onClick={()=>authStatus()} className="m-5 font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">
+            Képek 2
             </Link>
             <a onClick={()=>{logout('usertoken');navigate('/')}}  className="font-medium text-gray-500 hover:text-gray-900 transition duration-150 ease-in-out">
             Kilépés

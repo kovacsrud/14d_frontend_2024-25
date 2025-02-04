@@ -1,6 +1,7 @@
 import { useState,useContext } from "react";
 import UserContext from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import {toast} from 'react-toastify';
 
 
 function Register() {
@@ -19,10 +20,12 @@ function Register() {
       if(!token.message){
         sessionStorage.setItem('usertoken',token);
         authStatus();
-        alert("Sikeres regisztráció!");
+        //alert("Sikeres regisztráció!");
+        toast.success("Sikeres regisztráció!");
         navigate('/');
       } else {
-        alert(token.message);
+        //alert(token.message);
+        toast.error(token.message);
       }
     })
     .catch(err=>alert(err));

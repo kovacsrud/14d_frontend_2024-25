@@ -24,6 +24,7 @@ app.use('/files',express.static(path.join(__dirname,'files')));
 app.use('/api/user',require('./routes/userRoutes'));
 app.use('/api/files',require('./routes/uploadRoutes'));
 app.use('/api/images',require('./routes/imageRoutes'));
+app.use('/api/imagesbin',require('./routes/imageBinRoutes'));
 
 
 const options={

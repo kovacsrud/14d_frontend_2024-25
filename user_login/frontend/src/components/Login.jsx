@@ -1,6 +1,7 @@
 import { useState,useContext } from "react";
 import UserContext from "../context/UserContext";
 import {useNavigate} from "react-router-dom";
+import { toast } from "react-toastify";
 
 
 function Login() {
@@ -19,10 +20,13 @@ function Login() {
             if(!token.message){
                 sessionStorage.setItem('usertoken',token);
                 authStatus();
-                alert("Sikeres belépés!");
+                //alert("Sikeres belépés!");
+                toast.success("Sikeres belépés",{position:"bottom-right"});
                 navigate('/');
             } else {
-                alert(token.message);
+                //alert(token.message);
+                toast.error(alert.message);
+
             }
         })
         .catch(err=>alert(err));
