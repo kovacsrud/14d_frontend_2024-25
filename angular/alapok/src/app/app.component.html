@@ -1,0 +1,13 @@
+
+<app-header [headerSzoveg]="'Angular header'" />
+<h1 class="text-3xl font-bold text-center text-sky-500">{{title}}</h1>
+<h2 class="text-3xl font-bold text-center text-sky-500">{{valamiErtek}}</h2>
+
+<app-select (kivalasztottErtek)="getErtek($event)"/>
+
+<app-lista />
+<app-randusers />
+
+
+
+<router-outlet />

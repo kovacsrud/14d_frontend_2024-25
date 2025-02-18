@@ -1,0 +1,32 @@
+<h1 class="text-3xl text-sky-800 font-bold text-center m-5">Szereplők</h1>
+
+<ng-container *ngIf="isLoading;else characterlist">
+    <h1 class="text-2xl text-sky-500 text-center font-bold">Betöltés</h1>
+</ng-container>
+
+<ng-template #characterlist>
+    <ng-container *ngIf="results.length>0;else ureslista">
+        <div class="join flex flex-row justify-center">
+            <button (click)="vissza()" class="join-item btn">«</button>
+            <button class="join-item btn">{{page}}</button>
+            <button (click)="tovabb()" class="join-item btn">»</button>
+          </div>
+        <div class="flex flex-row flex-wrap items-center justify-center">
+        <ng-container *ngFor="let result of results">
+            <!--<p class="text-center">{{result.name}}</p>-->
+            <app-character [result]="result" />
+        </ng-container>
+        </div>
+        <div class="join flex flex-row justify-center">
+            <button (click)="vissza()" class="join-item btn">«</button>
+            <button class="join-item btn">{{page}}</button>
+            <button (click)="tovabb()" class="join-item btn">»</button>
+          </div>
+    </ng-container>
+
+</ng-template>
+
+<ng-template #ureslista>
+    <h1 class="text-2xl text-sky-500 text-center font-bold">A lista üres!</h1>
+</ng-template>
+

@@ -1,0 +1,26 @@
+<div>
+    <h2 class="text-3xl text-sky-300 text-center my-2">Lista példa:</h2>
+    <div class="flex flex-col items-center">
+     <ul>
+    <ng-container *ngIf="nevek.length>0;else ureslista">
+        <ng-container *ngFor="let nev of nevek;let i=index">
+            <li>{{i+1}}. {{nev}} <button (click)="nevTorles(i)" class="btn btn-primary">Törlés</button></li>
+        </ng-container>
+    </ng-container>    
+    </ul>   
+    </div>
+    <ng-container *ngIf="nevek.length<=10;else telelista">
+        <div class="flex flex-col items-center">
+            <form (submit)="nevHozzaad($event)">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline border-red-500" id="nev" name="nev" type="text" placeholder="Új név">
+                <button class="btn btn-secondary m-2">Hozzáadás</button>
+            </form>
+        </div>
+    </ng-container>
+</div>
+<ng-template #ureslista>
+    <p class="text-4xl text-red-500 font-bold text-center">A lista üres!</p>
+</ng-template>
+<ng-template #telelista>
+    <p class="text-4xl text-amber-400 font-bold text-center">A lista megtelt!</p>
+</ng-template>
