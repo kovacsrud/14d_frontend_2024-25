@@ -1,0 +1,131 @@
+<div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <img class="mx-auto h-10 w-auto" src="https://www.svgrepo.com/show/301692/login.svg" alt="Workflow">
+        <h2 class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
+            Regisztráció
+        </h2>
+        <p class="mt-2 text-center text-sm leading-5 text-gray-500 max-w">
+            vagy
+            <a href="#"
+                class="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                belépés
+            </a>
+        </p>
+    </div>
+
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <form (submit)="submit($event)" [formGroup]="registerForm">
+                <div>
+                    <label for="name" class="block text-sm font-medium leading-5  text-gray-700">Felhasználói név</label>
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                        <input formControlName="username" id="username" name="username" placeholder="user" type="text" required=""
+                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                            <div *ngIf="getError('username','required')">
+                                A felhasználói név kötelező!
+                            </div>
+                            <div *ngIf="getError('username','minlength') as err">
+                                A felhasználói név minimális hossza: {{err.requiredLength}}
+                            </div>
+                        <div class="hidden absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                    clip-rule="evenodd">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                <div class="mt-6">
+                    <label for="email" class="block text-sm font-medium leading-5 text-gray-700">
+                        Email cím
+                    </label>
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                        <input formControlName="email" id="email" name="email" placeholder="user@example.com" type="email"
+                            required=""
+                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                            <div *ngIf="getError('email','required')">
+                                Kötelező megadni az e-mail címet!
+                            </div>
+                            <div *ngIf="getError('email','email')">
+                                Email címet kell megadni!
+                            </div>
+                        <div class="hidden absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <label for="age" class="block text-sm font-medium leading-5 text-gray-700">
+                        Életkor
+                    </label>
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                        <input formControlName="age" id="age" name="age" placeholder="életkor" type="email"
+                            required=""
+                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                            <div *ngIf="getError('age','required')">
+                                Kötelező megadni az életkort!
+                            </div>
+                            <div *ngIf="getError('age','min') as err">
+                                Az életkor nem lehet kisebb mint {{err.min}}
+                            </div>
+                            <div *ngIf="getError('age','max') as err">
+                                Az életkor nem lehet nagyobb mint {{err.max}}
+                            </div>
+                        <div class="hidden absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <label for="password" class="block text-sm font-medium leading-5 text-gray-700">
+                        Jelszó
+                    </label>
+                    <div class="mt-1 rounded-md shadow-sm">
+                        <input formControlName="password" id="password" name="password" type="password" required=""
+                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                            <div *ngIf="getError('password','required')">Adja meg a jelszót!</div>
+                            <div *ngIf="getError('password','minlength') as err">A jelszó minimális hossza:{{err.requiredLength}} karakter</div>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <label  for="passwordagain" class="block text-sm font-medium leading-5 text-gray-700">
+                        Jelszó megint
+                    </label>
+                    <div class="mt-1 rounded-md shadow-sm">
+                        <input formControlName="passwordagain" id="passwordagain" name="passwordagain" type="password" required=""
+                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                            <div *ngIf="getError('passwordagain','required')">Adja meg a jelszót!</div>
+                            <div *ngIf="getError('passwordagain','minlength') as err">A jelszó minimális hossza:{{err.requiredLength}} karakter</div>
+
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <span class="block w-full rounded-md shadow-sm">
+                        <button type="submit"
+                            class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
+                            Regisztráció
+                        </button>
+                    </span>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
