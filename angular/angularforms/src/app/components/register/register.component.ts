@@ -1,20 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, WritableSignal } from '@angular/core';
 import {FormControl,FormGroup,ReactiveFormsModule,Validators} from '@angular/forms';
 import { NgFor,NgIf } from '@angular/common';
 import {Router} from '@angular/router';
+import { TokenService } from '../../services/tokenservice';
 
 @Component({
+  standalone:true,
   selector: 'app-register',
   imports: [NgIf,ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
+  
 })
 export class RegisterComponent implements OnInit {
-  constructor(private router:Router){
+
+  token:string="";
+  constructor(private router:Router,private tokenservice:TokenService){
+  
+    
 
   }
+
+  
+
   ngOnInit(): void {
-    this.registerForm.valueChanges.subscribe(val=>console.log(val));
+    this.tokenservice.data.subscribe(value=>{
+      this.token=value;
+      console.log(this.token);
+    });
   }
 
   submit(e:any){
@@ -29,6 +42,8 @@ export class RegisterComponent implements OnInit {
     .then(valasz=>{
       if(!valasz.message){
         sessionStorage.setItem('usertoken',valasz);
+        this.tokenservice.updateToken(valasz);
+        
         alert(valasz);
         this.router.navigate(['/']);
       } else {
