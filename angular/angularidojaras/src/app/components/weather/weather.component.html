@@ -1,0 +1,10 @@
+<ng-container *ngIf="idojaras; else load">
+    <p>A jelenlegi hőmérséklet:{{idojaras.current_weather.temperature}}{{idojaras.current_weather_units.temperature}}</p>
+    <p>Szélsebesség:{{idojaras.current_weather.windspeed}}{{idojaras.current_weather_units.windspeed}}</p>
+    <p>Szél iránya:{{idojaras.current_weather.winddirection}}{{idojaras.current_weather_units.winddirection}}</p>
+</ng-container>
+
+
+<ng-template #load>
+    <p>Betöltés...</p>
+</ng-template>

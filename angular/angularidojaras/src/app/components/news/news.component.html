@@ -1,0 +1,19 @@
+
+<div class="flex flex-col">
+
+    <ng-container *ngIf="isLoading;else hirek">
+        <h2 class="text-2xl">Hírek betöltése</h2>
+    </ng-container>
+
+    <ng-template #hirek>
+        <ng-container *ngIf="newsData.length>0">
+            <ng-container *ngFor="let news of newsData">
+                <p>{{news.webTitle}}</p>
+
+            </ng-container>
+        </ng-container>
+    </ng-template>
+    
+</div>
+
+
