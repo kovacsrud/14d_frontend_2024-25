@@ -24,6 +24,14 @@ export function getAllKutya(){
         })
     })
 }
+export function getKutya(id){
+    return new Promise((resolve,reject)=>{
+        kutyadb.all("select * from kutya where Id=?",[id],(err,rows)=>{
+            if(err) reject(err);
+            else resolve(rows);
+        })
+    });
+}
 
 export function getAllCustomers(){
     return new Promise((resolve,reject)=>{
@@ -33,3 +41,15 @@ export function getAllCustomers(){
         })
     })
 }
+
+export function getCustomerIncome(alsoHatar,felsoHatar){
+    return new Promise((resolve,reject)=>{
+        autodb.all("select * from Customers where household_income>=? and household_income<=?",
+            [alsoHatar,felsoHatar],(err,rows)=>{
+            if(err) reject(err);
+            else resolve(rows);
+        });
+    });
+
+}
+
