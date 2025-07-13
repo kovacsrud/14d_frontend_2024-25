@@ -13,7 +13,7 @@ function App() {
   return (
 
       <div>
-        <BrowserRouter>
+        <BrowserRouter basename="/rickandmorty">
           <Menu />
           <Routes>
               <Route path="/" element={<Main />} />
