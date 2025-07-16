@@ -15,9 +15,9 @@ function Kutyak() {
     <div>
         <h1 className="text-3xl text-sky-800 text-center font-bold">Rendelési adatok:</h1>
         <div className="m-5 text-center">
-          <button onClick={formnyit} className="w-24 p-2 btn btn-square">Új rendelési adat</button>
+          <button onClick={formnyit} className="w-28 p-2 btn btn-primary">Új rendelési adat</button>
         </div>
-        <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 justify-items-center">
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 justify-items-center">
           {
             kutyak.map((kutya,i)=><Kutya key={i} kutya={kutya} />)
           }

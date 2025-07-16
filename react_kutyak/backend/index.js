@@ -1,8 +1,17 @@
 const express=require('express');
 const app=express();
 const sqlite3=require('sqlite3');
-const db=new sqlite3.Database('./kutyak_good_unique.db');
+//const Joi=require('joi');
+const xss=require('xss');
+const path=require('path');
+const { check, body, validationResult } = require('express-validator');
+const kutyanevSchema=require('./validation_schemas/kutyanevSchema');
+const dbName="kutyak_good_unique.db";
+const dbUtvonal=path.join(__dirname,dbName);
+//const db=new sqlite3.Database('./kutyak_good_unique.db');
+const db=new sqlite3.Database(dbUtvonal);
 const cors=require('cors');
+
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -26,6 +35,84 @@ app.get('/kutyanevek',(req,res)=>{
     })
 });
 
+app.post('/kutyanevek',
+    body('kutyanev').isLength({min:2,max:50}).withMessage("Min 2, max 50 karakter a kutyanév!").trim().escape(),
+    (req,res)=>{
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            let errorText=""
+            errors.array().map(e=>errorText+=e.msg);
+            return res.status(400).json({ errors: errorText })
+            //return res.status(400).json({ errors: errors.array() });
+        }
+       
+
+        const kutyanev=xss(req.body.kutyanev);
+
+
+        db.run("insert into kutyanevek (kutyanev) values(?)"
+            ,[kutyanev],(err)=>{
+                if(err){
+                    res.status(400).send(err);
+                } else {
+                    res.status(200).json({message:"Adat beszúrva!"})
+                }
+        })
+});
+
+app.patch('/kutyanevek',
+    body('kutyanev').isLength({min:2,max:50}).withMessage("Min 2, max 50 karakter a kutyanév!").trim().escape(),
+    body('Id').isNumeric().withMessage("Az azonosítónak számnak kell lennie!").trim().escape(),
+    (req,res)=>{
+    //const{Id,kutyanev}=req.body;
+      const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            let errorText=""
+            errors.array().map(e=>errorText+=e.msg);
+            return res.status(400).json({ errors: errorText })
+            //return res.status(400).json({ errors: errors.array() });
+        }
+    const Id=xss(req.body.Id);
+    const kutyanev=xss(req.body.kutyanev);
+    
+    db.run("UPDATE kutyanevek SET kutyanev=? WHERE Id=?"
+    ,[kutyanev,Id]
+    ,(err)=>{
+        if(err){
+            res.status(400).send(err);
+        } else {
+            res.status(200).json({message:"Adat módosítva!"})
+        }
+    });
+});
+
+app.delete('/kutyanevek',
+    body('Id').isNumeric().withMessage("Az azonosítónak számnak kell lennie!").trim().escape(),
+    (req,res)=>{
+   //const{Id}=req.body;
+   const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            let errorText=""
+            errors.array().map(e=>errorText+=e.msg);
+            return res.status(400).json({ errors: errorText })
+            //return res.status(400).json({ errors: errors.array() });
+        }
+    const Id=xss(req.body.Id);
+
+   db.run("DELETE FROM kutyanevek WHERE Id=?"
+   ,[Id]
+   ,(err)=>{
+        if(err){
+            res.status(400).send(err.stack);
+        } else {
+            res.status(200).json({message:"Adat törölve!"})
+        }
+
+   }); 
+});
+
+
 app.get('/kutyafajtak',(req,res)=>{
     db.all("select * from kutyafajtak",(err,rows)=>{
         if(err){
@@ -37,7 +124,7 @@ app.get('/kutyafajtak',(req,res)=>{
 });
 
 app.post('/kutyafajtak',(req,res)=>{
-    console.log(req.body);
+    
     db.run("insert into kutyafajtak (nev,eredetinev) values(?,?)"
     ,[req.body.nev,req.body.eredetinev],(err)=>{
         if(err){
@@ -49,10 +136,10 @@ app.post('/kutyafajtak',(req,res)=>{
 })
 
 app.patch('/kutyafajtak',(req,res)=>{
-    const{id,nev,eredetinev}=req.body;
-    console.log(req.body);
-    db.run("UPDATE kutyafajtak SET nev=?,eredetinev=? WHERE id=?"
-    ,[nev,eredetinev,id]
+    const{Id,nev,eredetinev}=req.body;
+    
+    db.run("UPDATE kutyafajtak SET nev=?,eredetinev=? WHERE Id=?"
+    ,[nev,eredetinev,Id]
     ,(err)=>{
         if(err){
             res.status(400).send(err);
@@ -63,9 +150,9 @@ app.patch('/kutyafajtak',(req,res)=>{
 });
 
 app.delete('/kutyafajtak',(req,res)=>{
-   const{id}=req.body;
-   db.run("DELETE FROM kutyafajtak WHERE id=?"
-   ,[id]
+   const{Id}=req.body;
+   db.run("DELETE FROM kutyafajtak WHERE Id=?"
+   ,[Id]
    ,(err)=>{
         if(err){
             res.status(400).send(err);

@@ -49,6 +49,7 @@ function Kutya({kutya}) {
     </figure>
     <div className="card-body">
       <h2 className="card-title">Kutya neve: {kutya.kutyanev}</h2>
+      <h2 className="card-title">Kutya fajtája: {kutya.nev}</h2>
       <h2 className="card-title">Életkor: {kutya.eletkor}</h2>
       <h2 className="card-title">Utolsó ellenőrzés: {kutya.utolsoell}</h2>
       <p>Azonosító:{kutya.Id}</p>
