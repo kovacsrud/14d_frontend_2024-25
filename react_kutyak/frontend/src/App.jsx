@@ -16,7 +16,7 @@ function App() {
   return (
 
       <div>       
-        <BrowserRouter>
+        <BrowserRouter basename="/rendelo">
         <KutyaProvider>
           <Menu />
           <Routes>

@@ -11,6 +11,7 @@ const dbUtvonal=path.join(__dirname,dbName);
 //const db=new sqlite3.Database('./kutyak_good_unique.db');
 const db=new sqlite3.Database(dbUtvonal);
 const cors=require('cors');
+const { string } = require('joi');
 
 
 app.use(express.json());
@@ -123,10 +124,24 @@ app.get('/kutyafajtak',(req,res)=>{
     })
 });
 
-app.post('/kutyafajtak',(req,res)=>{
+app.post('/kutyafajtak',
+    body('nev').isLength({min:2,max:50}).withMessage("Min 2, max 50 karakter a fajta neve!").trim().escape(),
+    body('eredetinev').isLength({min:2,max:50}).withMessage("Min 2, max 50 karakter a fajta eredeti neve!").trim().escape(),
+    (req,res)=>{
+        
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            let errorText=""
+            errors.array().map(e=>errorText+=e.msg);
+            return res.status(400).json({ errors: errorText })
+            //return res.status(400).json({ errors: errors.array() });
+        }
+
+        const nev=xss(req.body.nev);
+        const eredetinev=xss(req.body.eredetinev);
     
     db.run("insert into kutyafajtak (nev,eredetinev) values(?,?)"
-    ,[req.body.nev,req.body.eredetinev],(err)=>{
+    ,[nev,eredetinev],(err)=>{
         if(err){
             res.status(400).send(err);
         } else {
@@ -135,8 +150,24 @@ app.post('/kutyafajtak',(req,res)=>{
     })
 })
 
-app.patch('/kutyafajtak',(req,res)=>{
-    const{Id,nev,eredetinev}=req.body;
+app.patch('/kutyafajtak',
+    body('Id').isNumeric().withMessage("Az azonosítónak számnak kell lennie!").trim().escape(),
+    body('nev').isLength({min:2,max:50}).withMessage("Min 2, max 50 karakter a fajta neve!").trim().escape(),
+    body('eredetinev').isLength({min:2,max:50}).withMessage("Min 2, max 50 karakter a fajta eredeti neve!").trim().escape(),
+    (req,res)=>{
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            let errorText=""
+            errors.array().map(e=>errorText+=e.msg);
+            return res.status(400).json({ errors: errorText })
+            //return res.status(400).json({ errors: errors.array() });
+        }
+
+        const Id=xss(req.body.Id);
+        const nev=xss(req.body.nev);
+        const eredetinev=xss(req.body.eredetinev);
+    
     
     db.run("UPDATE kutyafajtak SET nev=?,eredetinev=? WHERE Id=?"
     ,[nev,eredetinev,Id]
@@ -149,8 +180,21 @@ app.patch('/kutyafajtak',(req,res)=>{
     });
 });
 
-app.delete('/kutyafajtak',(req,res)=>{
-   const{Id}=req.body;
+app.delete('/kutyafajtak',
+    body('Id').isNumeric().withMessage("Az azonosítónak számnak kell lennie!").trim().escape(),
+    (req,res)=>{
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            let errorText=""
+            errors.array().map(e=>errorText+=e.msg);
+            return res.status(400).json({ errors: errorText })
+            //return res.status(400).json({ errors: errors.array() });
+        }
+
+        const Id=xss(req.body.Id);
+   
+
    db.run("DELETE FROM kutyafajtak WHERE Id=?"
    ,[Id]
    ,(err)=>{
@@ -186,8 +230,27 @@ app.get('/kutyak',(req,res)=>{
 
 });
 
-app.post('/kutyak',(req,res)=>{
-    const{fajtaid,nevid,eletkor,utolsoell}=req.body;
+app.post('/kutyak',
+    body('fajtaid').isNumeric().withMessage("A fajtaid szám kell hogy legyen!").trim().escape(),
+    body('nevid').isNumeric().withMessage("A nevid szám kell hogy legyen!").trim().escape(),
+    body('eletkor').isNumeric().withMessage("Az életkornak számnak kell lennie!").trim().escape(),
+    body('nev').isLength({max:10}).withMessage("Itt dátumot kell megadni!").trim().escape(),
+    (req,res)=>{
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            let errorText=""
+            errors.array().map(e=>errorText+=e.msg);
+            return res.status(400).json({ errors: errorText })
+            //return res.status(400).json({ errors: errors.array() });
+        }
+
+        const fajtaid=xss(req.body.fajtaid);
+        const nevid=xss(req.body.nevid);
+        const eletkor=xss(req.body.eletkor);
+        const utolsoell=xss(req.body.utolsoell);
+
+    
     db.run("INSERT INTO kutya (fajtaid,nevid,eletkor,utolsoell) values(?,?,?,?)"
     ,[fajtaid,nevid,eletkor,utolsoell],(err)=>{
         if(err){
@@ -199,8 +262,32 @@ app.post('/kutyak',(req,res)=>{
 
 });
 
-app.patch('/kutyak',(req,res)=>{
-    const{Id,fajtaid,nevid,eletkor,utolsoell}=req.body;
+app.patch('/kutyak',
+    body('Id').isNumeric().withMessage("Az azonosítónak számnak kell lennie!").trim().escape(),
+    body('fajtaid').isNumeric().withMessage("A fajtaid szám kell hogy legyen!").trim().escape(),
+    body('nevid').isNumeric().withMessage("A nevid szám kell hogy legyen!").trim().escape(),
+    body('eletkor').isNumeric().withMessage("Az életkornak számnak kell lennie!").trim().escape(),
+    body('nev').isLength({max:10}).withMessage("Itt dátumot kell megadni!").trim().escape(),
+    (req,res)=>{
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            let errorText=""
+            errors.array().map(e=>errorText+=e.msg);
+            return res.status(400).json({ errors: errorText })
+            //return res.status(400).json({ errors: errors.array() });
+        }
+
+        const Id=xss(req.body.Id);
+        const fajtaid=xss(req.body.fajtaid);
+        const nevid=xss(req.body.nevid);
+        const eletkor=xss(req.body.eletkor);
+        const utolsoell=xss(req.body.utolsoell);
+
+
+    
+
+
     db.run("UPDATE kutya SET fajtaid=?,nevid=?,eletkor=?,utolsoell=? WHERE Id=?"
     ,[fajtaid,nevid,eletkor,utolsoell,Id],(err)=>{
         if(err){
@@ -212,8 +299,21 @@ app.patch('/kutyak',(req,res)=>{
 
 });
 
-app.delete('/kutyak',(req,res)=>{
-    const{Id}=req.body;
+app.delete('/kutyak',
+    body('Id').isNumeric().withMessage("Az azonosítónak számnak kell lennie!").trim().escape(),
+    (req,res)=>{
+     
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            let errorText=""
+            errors.array().map(e=>errorText+=e.msg);
+            return res.status(400).json({ errors: errorText })
+            //return res.status(400).json({ errors: errors.array() });
+        }
+     
+        const Id=xss(req.body.Id);
+
+
     db.get("PRAGMA foreign_keys = ON");
     db.run("DELETE FROM kutya WHERE Id=?"
     ,[Id],(err)=>{
